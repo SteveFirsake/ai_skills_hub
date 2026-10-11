@@ -23,9 +23,9 @@ mindmap
       transcribe
       video-tools
     Dev Workflow and Code Quality
-      aminichain
       code-review
       cognitive-complexity
+      cosmos-chain
       data-oriented-cpp
       dep-audit
       foundry-tools
@@ -160,48 +160,6 @@ amini-llm/
 ├── SKILL.md
 ├── amini_llm_cli.py
 └── example.env
-```
-
----
-
-## aminichain
-
-Working in the AminiChain repository: a Cosmos SDK app-chain with an embedded EVM ([cosmos/evm](https://github.com/cosmos/evm)) and native precompiles for oracles, jobs, compute, content, MDI records and hosts, each reachable both as a Cosmos message and as an EVM call at a fixed address. Covers orienting in the repo (its `AGENTS.md` comes first and wins), the Makefile build/test/lint/proto targets, a single-validator localnet on loopback-only ports with `scripts/local-node.sh`, the multi-node docker compose localnet, stopping and resetting both, precompile addresses and ABIs with `cast call` examples, reading module/EVM/fee-market params, and power reduction as a build-time input. Project specifics are read from the repo at runtime rather than copied into the skill. Proto regeneration defers to the `ignite` skill. Anything that broadcasts beyond a local node, uses real keys, or touches production genesis or ceremony files needs explicit approval.
-
-### Installation
-
-No install beyond the repo's own toolchain:
-
-```bash
-go version          # Go with CGO enabled; the repo's go.mod sets the version
-cast --version      # optional, Foundry, for precompile calls
-docker compose version   # optional, for the multi-node localnet
-```
-
-### Usage
-
-```bash
-/aminichain orient                          # read AGENTS.md, versions from go.mod, Makefile targets
-/aminichain localnet                        # make localnet, verify blocks and EVM JSON-RPC
-/aminichain precompiles list pending jobs   # cast call against the local node
-/aminichain params                          # module, EVM and fee-market params on the local node
-```
-
-### Reference files
-
-| Topic | File |
-|-------|------|
-| Single-validator and docker localnets, ports, stop and reset | `references/localnet.md` |
-| Precompile addresses, ABIs, `cast` calls, params, build-time inputs | `references/precompiles-and-params.md` |
-
-### Files
-
-```
-aminichain/
-├── SKILL.md
-└── references/
-    ├── localnet.md
-    └── precompiles-and-params.md
 ```
 
 ---
@@ -613,6 +571,50 @@ $COOLIFY teams
 coolify/
 ├── SKILL.md
 └── coolify_cli.py
+```
+
+---
+
+## cosmos-chain
+
+Build, run and debug any Cosmos SDK app-chain, with or without an embedded EVM ([cosmos/evm](https://github.com/cosmos/evm)). Starts by orienting in the repo (`cmd/<name>d`, `go.mod` versions, Makefile targets, `app/`, `x/`, `precompiles/`, any `AGENTS.md`/`CONTRIBUTING.md`), then covers building and testing the daemon, bringing up a throwaway single-validator localnet from the binary's `init` → `genesis` → `start` sequence or the repo's own script (including the cosmos/evm genesis patches that avoid the `denom metadata could not be found` boot panic), the standard cosmos/evm precompile addresses (P256, Bech32, staking, distribution, ICS20, bank, gov, slashing, ICS02) with `cast call` examples taken from the v0.7.3 ABIs, how to find a chain's custom precompiles, reading module/EVM/ERC20/fee-market/consensus params and telling genesis values from build-time `ldflags`, and conventions for consensus-critical code (determinism, Cosmos-message/precompile parity, revert semantics, state-breaking labels). Project specifics are read from the repo at runtime, never assumed. Scaffolding and proto generation defer to the `ignite` skill; Solidity work on top of the chain defers to `foundry-tools`/`hardhat-tools`. Anything that broadcasts beyond a local node, uses real keys, or touches a production or shared genesis needs explicit approval.
+
+### Installation
+
+No install beyond the chain's own toolchain:
+
+```bash
+go version               # Go with CGO enabled; the repo's go.mod sets the version
+jq --version             # genesis patching
+cast --version           # optional, Foundry, for precompile calls on EVM chains
+docker compose version   # optional, multi-node testnets
+```
+
+### Usage
+
+```bash
+/cosmos-chain orient                         # daemon name, SDK/CometBFT/evm versions, Makefile targets, repo rules
+/cosmos-chain localnet                       # bring up one validator on 127.0.0.1, verify blocks and JSON-RPC
+/cosmos-chain precompiles bank balances      # cast call against the local node
+/cosmos-chain params                         # evm / feemarket / erc20 / staking params on the local node
+/cosmos-chain conventions                    # determinism, two-door parity, state-breaking checklist
+```
+
+### Reference files
+
+| Topic | File |
+|-------|------|
+| Single-validator localnet (binary, repo script, cosmos/evm patches), ports, stop/reset, multi-node and IBC | `references/localnet.md` |
+| Standard and custom precompile addresses, ABIs, `cast` calls, params, genesis vs build-time inputs | `references/precompiles-and-params.md` |
+
+### Files
+
+```
+cosmos-chain/
+├── SKILL.md
+└── references/
+    ├── localnet.md
+    └── precompiles-and-params.md
 ```
 
 ---

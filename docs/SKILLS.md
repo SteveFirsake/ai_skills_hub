@@ -5,7 +5,6 @@ Complete table of every skill in this repository. Each skill name links to its d
 | Skill | Description | Dependencies |
 |-------|-------------|--------------|
 | [amini-llm](../README.md#amini-llm) | On-prem OpenAI-compatible LLM gateway: chat, reasoning, vision, OCR, embeddings | `AMINI_LLM_API_KEY` env var + Twingate access |
-| [aminichain](../README.md#aminichain) | AminiChain (Cosmos SDK + EVM) repo: build/test, localnet, precompile calls with cast, params; non-local broadcast gated | Go (CGO), `python3`, `jq`; optional Foundry `cast`, Docker |
 | [android-tools](../README.md#android-tools) | Android emulator/adb/logcat recipes, ANR & Gradle build triage | Android SDK (`adb`, `emulator`, `avdmanager`) |
 | [api-client](../README.md#api-client) | HTTP client with saved request collections & environments (a CLI Postman) | None |
 | [app-showcase](../README.md#app-showcase) | Build a pitch deck or screenshot-driven manual from a live app | `playwright`, `gws` |
@@ -16,6 +15,7 @@ Complete table of every skill in this repository. Each skill name links to its d
 | [cognitive-complexity](../README.md#cognitive-complexity) | Measure & rank Cognitive Complexity to target refactors | `complexipy`, `gocognit`, `eslint-plugin-sonarjs`, `clang-tidy`, `solhint`, `scc` |
 | [convert-to-md](../README.md#convert-to-md) | Convert PDF/PPTX to Markdown | `pymupdf`, `python-pptx` |
 | [coolify](../README.md#coolify) | Manage Coolify deployments & env vars via API | None |
+| [cosmos-chain](../README.md#cosmos-chain) | Any Cosmos SDK / Cosmos EVM chain: build/test, single-validator localnet, standard + custom precompile calls with cast, params; non-local broadcast gated | Go (CGO), `jq`; optional Foundry `cast`, Docker |
 | [csv-tools](../README.md#csv-tools) | CSV manipulation & conversion | None |
 | [data-oriented-cpp](../README.md#data-oriented-cpp) | Design & review hot-loop C++ over large arrays: masks, virtual arrays, COW, parallelism | None |
 | [datasheet](../README.md#datasheet) | Digest component datasheets into structured part cards; compare parts | None |
